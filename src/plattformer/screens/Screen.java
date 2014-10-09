@@ -26,4 +26,7 @@ public abstract class Screen {
 	public void onKey(int keycode) {
 	}
 
+	public void onMouseClick(int x, int y, int button) {
+	}
+
 }

@@ -22,4 +22,9 @@ public class DebugScreen extends Screen {
 		System.out.println("key: " + keycode);
 	}
 
+	@Override
+	public void onMouseClick(int x, int y, int button) {
+		System.out.println("mouse: " + button + " - " + x + ", " + y);
+	}
+
 }

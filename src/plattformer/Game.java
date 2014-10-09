@@ -10,6 +10,7 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import plattformer.input.Keyboard;
+import plattformer.input.Mouse;
 import plattformer.screens.DebugScreen;
 import plattformer.screens.Screen;
 
@@ -29,11 +30,14 @@ public class Game extends Canvas implements Runnable {
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
+	private Mouse mouse;
 	private Keyboard keyboard;
 	private Screen currentScreen;
 
 	public Game() {
 		currentScreen = new DebugScreen(this);
+		mouse = new Mouse(this);
+		addMouseListener(mouse);
 		keyboard = new Keyboard(this);
 		addKeyListener(keyboard);
 	}
@@ -100,6 +104,10 @@ public class Game extends Canvas implements Runnable {
 	public void onKeyType(int keycode) {
 		currentScreen.onKey(keycode);
 	}
+	
+	public void onMouseClick(int x, int y, int button) {
+		currentScreen.onMouseClick(x, y, button);
+	}
 
 	public int getScaledWidth() {
 		return WIDTH;
@@ -107,6 +115,10 @@ public class Game extends Canvas implements Runnable {
 
 	public int getScaledHeight() {
 		return HEIGHT;
+	}
+	
+	public int getScale() {
+		return SCALE;
 	}
 
 }
