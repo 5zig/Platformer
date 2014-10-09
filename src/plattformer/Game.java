@@ -9,6 +9,7 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
+import plattformer.input.Keyboard;
 import plattformer.screens.DebugScreen;
 import plattformer.screens.Screen;
 
@@ -28,10 +29,13 @@ public class Game extends Canvas implements Runnable {
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
+	private Keyboard keyboard;
 	private Screen currentScreen;
 
 	public Game() {
 		currentScreen = new DebugScreen(this);
+		keyboard = new Keyboard(this);
+		addKeyListener(keyboard);
 	}
 
 	public void create() {
@@ -62,6 +66,7 @@ public class Game extends Canvas implements Runnable {
 
 	@Override
 	public void run() {
+		requestFocus();
 		while (running) {
 			render();
 		}
@@ -90,6 +95,10 @@ public class Game extends Canvas implements Runnable {
 	
 	private void tick() {
 		currentScreen.tick();
+	}
+	
+	public void onKeyType(int keycode) {
+		currentScreen.onKey(keycode);
 	}
 
 	public int getScaledWidth() {

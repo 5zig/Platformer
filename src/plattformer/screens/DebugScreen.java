@@ -14,9 +14,12 @@ public class DebugScreen extends Screen {
 
 	@Override
 	public void render() {
-		for (int i = 0; i < pixels.length; i++) {
-			pixels[i] = r.nextInt();
-		}
+		pixels[r.nextInt(pixels.length)] = 0xffffff;
+	}
+
+	@Override
+	public void onKey(int keycode) {
+		System.out.println("key: " + keycode);
 	}
 
 }
