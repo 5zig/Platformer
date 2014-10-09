@@ -6,9 +6,11 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.util.Random;
 
 import javax.swing.JFrame;
+
+import plattformer.screens.DebugScreen;
+import plattformer.screens.Screen;
 
 public class Game extends Canvas implements Runnable {
 
@@ -24,11 +26,12 @@ public class Game extends Canvas implements Runnable {
 	private boolean running;
 
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer())
-			.getData();
+	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+
+	private Screen currentScreen;
 
 	public Game() {
-
+		currentScreen = new DebugScreen(this);
 	}
 
 	public void create() {
@@ -64,22 +67,29 @@ public class Game extends Canvas implements Runnable {
 		}
 		stop();
 	}
-	
+
 	private void render() {
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
 			createBufferStrategy(3);
 			return;
 		}
+
+		currentScreen.clear();
+		currentScreen.render();
 		
-		for (int i = 0; i < pixels.length; i++) {
-			pixels[i] = 0xffffff;
+		for (int i = 0; i < currentScreen.pixels.length; i++) {
+			pixels[i] = currentScreen.pixels[i];
 		}
-		
+
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		g.dispose();
 		bs.show();
+	}
+	
+	private void tick() {
+		currentScreen.tick();
 	}
 
 	public int getScaledWidth() {
