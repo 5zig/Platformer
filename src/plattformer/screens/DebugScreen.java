@@ -11,10 +11,20 @@ public class DebugScreen extends Screen {
 	public DebugScreen(Game game) {
 		super(game);
 	}
-
+	
+	private int ticks; //Only temporarily
+	
+	@Override
+	public void tick() {
+		ticks++;
+	}
+	
 	@Override
 	public void render() {
-		pixels[r.nextInt(pixels.length)] = 0xffffff;
+		//pixels[r.nextInt(pixels.length)] = 0xffffff;
+		for (int i = 0; i < pixels.length; i++) {
+			pixels[i] = i + ticks;
+		}
 	}
 
 	@Override

@@ -40,6 +40,7 @@ public class Game extends Canvas implements Runnable {
 		addMouseListener(mouse);
 		keyboard = new Keyboard(this);
 		addKeyListener(keyboard);
+		requestFocus();
 	}
 
 	public void create() {
@@ -70,9 +71,31 @@ public class Game extends Canvas implements Runnable {
 
 	@Override
 	public void run() {
-		requestFocus();
+		long lastTime = System.nanoTime();
+		double ns = 1000000000.0 / 60.0;
+		double delta = 0;
+		long lastTimer = System.currentTimeMillis();
+		int ticks = 0, frames = 0;
 		while (running) {
+			long now = System.nanoTime();
+			delta += (now - lastTime) / ns;
+			lastTime = now;
+
+			while (delta >= 1) {
+				tick();
+				ticks++;
+				delta--;
+			}
+
 			render();
+			frames++;
+
+			if (System.currentTimeMillis() - lastTimer > 1000) {
+				lastTimer += 1000;
+				System.out.println(ticks + " ticks, " + frames + " fps");
+				ticks = 0;
+				frames = 0;
+			}
 		}
 		stop();
 	}
@@ -86,11 +109,11 @@ public class Game extends Canvas implements Runnable {
 
 		currentScreen.clear();
 		currentScreen.render();
-		
+
 		for (int i = 0; i < currentScreen.pixels.length; i++) {
 			pixels[i] = currentScreen.pixels[i];
 		}
-
+		
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		g.dispose();
@@ -100,11 +123,11 @@ public class Game extends Canvas implements Runnable {
 	private void tick() {
 		currentScreen.tick();
 	}
-	
+
 	public void onKeyType(int keycode) {
 		currentScreen.onKey(keycode);
 	}
-	
+
 	public void onMouseClick(int x, int y, int button) {
 		currentScreen.onMouseClick(x, y, button);
 	}
@@ -116,9 +139,8 @@ public class Game extends Canvas implements Runnable {
 	public int getScaledHeight() {
 		return HEIGHT;
 	}
-	
+
 	public int getScale() {
 		return SCALE;
 	}
-
 }
