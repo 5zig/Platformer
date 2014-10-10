@@ -123,13 +123,13 @@ public class Game extends Canvas implements Runnable {
 	private void tick() {
 		currentScreen.tick();
 	}
-
-	public void onKeyType(int keycode) {
-		currentScreen.onKey(keycode);
+	
+	public void displayScreen(Screen screen) {
+		this.currentScreen = screen;
 	}
-
-	public void onMouseClick(int x, int y, int button) {
-		currentScreen.onMouseClick(x, y, button);
+	
+	public Screen getCurrentScreen() {
+		return currentScreen;
 	}
 
 	public int getScaledWidth() {

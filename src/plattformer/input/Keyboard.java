@@ -15,7 +15,7 @@ public class Keyboard implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		game.onKeyType(e.getKeyCode());
+		game.getCurrentScreen().onKey(e.getKeyCode());
 	}
 
 	@Override

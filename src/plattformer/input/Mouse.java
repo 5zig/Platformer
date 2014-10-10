@@ -15,7 +15,7 @@ public class Mouse implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		game.onMouseClick(e.getX() / game.getScale(), e.getY() / game.getScale(), e.getButton());
+		game.getCurrentScreen().onMouseClick(e.getX() / game.getScale(), e.getY() / game.getScale(), e.getButton());
 	}
 
 	@Override
