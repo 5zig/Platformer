@@ -17,6 +17,8 @@ public class Sprite {
 	 *            X-Coordinate
 	 * @param y
 	 *            Y-Coordinate
+	 * @param size
+	 *            The Size of the Sprite
 	 */
 	public Sprite(SpriteSheet sheet, int x, int y, int size) {
 		pixels = new int[size * size];
