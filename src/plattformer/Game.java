@@ -20,7 +20,6 @@ public class Game extends Canvas implements Runnable {
 
 	private JFrame frame;
 	private final String TITLE = "Platformer";
-	public String lel = "lel";
 	private final int WIDTH = 300;
 	private final int HEIGHT = WIDTH * 9 / 16;
 	private final int SCALE = 3;
@@ -34,8 +33,6 @@ public class Game extends Canvas implements Runnable {
 	private Mouse mouse;
 	private Keyboard keyboard;
 	private Screen currentScreen;
-	
-	private String TEST;
 
 	public Game() {
 		currentScreen = new DebugScreen(this);
