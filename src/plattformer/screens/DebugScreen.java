@@ -13,27 +13,28 @@ public class DebugScreen extends Screen {
 		super(game);
 	}
 
-	private int ticks, x; // Only temporarily
+	private int ticks;
+	private int x = r.nextInt(game.getScaledWidth()), y = 0;
 
 	@Override
 	public void tick() {
 		ticks++;
-		if (x + game.getScaledWidth() * 16 + 16 < pixels.length) x += 1;
-		else x = 0;
+		x += r.nextInt(2);
+		y += r.nextInt(2);
+		
+		if (x < -0 || y < 0 || x >= game.getScaledWidth() || y >= game.getScaledHeight()) {
+			x = r.nextInt(game.getScaledWidth());
+			y = 0;
+		}
 	}
 
 	@Override
 	public void render() {
-		// pixels[r.nextInt(pixels.length)] = 0xffffff;
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = i + ticks;
 		}
-		Sprite sprite = Sprite.TEST;
-		for (int y = 0; y < sprite.getSize(); y++) {
-			for (int x = 0; x < sprite.getSize(); x++) {
-				pixels[(this.x + x) + y * game.getScaledWidth()] = sprite.getPixels()[x + y * sprite.getSize()];
-			}
-		}
+
+		renderSprite(Sprite.TEST, x, y);
 	}
 
 	@Override
@@ -45,5 +46,4 @@ public class DebugScreen extends Screen {
 	public void onMouseClick(int x, int y, int button) {
 		System.out.println("mouse: " + button + " - " + x + ", " + y);
 	}
-
 }

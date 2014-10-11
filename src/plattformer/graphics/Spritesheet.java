@@ -5,23 +5,23 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Spritesheet {
+public class SpriteSheet {
 
 	private String path;
 	private int width, height;
 	private int[] pixels;
 
-	public static final Spritesheet TEST = new Spritesheet("/test.png");
+	public static final SpriteSheet TEST = new SpriteSheet("/test.png");
 
-	public Spritesheet(String path) {
+	public SpriteSheet(String path) {
 		this.path = path;
 		load();
 	}
-	
+
 	public int getWidth() {
 		return width;
 	}
-	
+
 	public int getHeight() {
 		return height;
 	}
@@ -33,7 +33,7 @@ public class Spritesheet {
 	private void load() {
 		System.out.print("Trying to load Spritesheet from " + path + "... ");
 		try {
-			BufferedImage image = ImageIO.read(Spritesheet.class.getResource(path));
+			BufferedImage image = ImageIO.read(SpriteSheet.class.getResource(path));
 			width = image.getWidth();
 			height = image.getHeight();
 			pixels = new int[width * height];
@@ -44,5 +44,4 @@ public class Spritesheet {
 			e.printStackTrace();
 		}
 	}
-
 }
