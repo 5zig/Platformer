@@ -34,6 +34,8 @@ public class Game extends Canvas implements Runnable {
 	private Mouse mouse;
 	private Keyboard keyboard;
 	private Screen currentScreen;
+	
+	private String TEST;
 
 	public Game() {
 		currentScreen = new DebugScreen(this);
