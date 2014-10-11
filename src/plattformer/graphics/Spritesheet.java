@@ -11,7 +11,10 @@ public class Spritesheet {
 	private int width, height;
 	private int[] pixels;
 
+	public static final Spritesheet TEST = new Spritesheet("/test.png");
+
 	public Spritesheet(String path) {
+		this.path = path;
 		load();
 	}
 	
@@ -23,8 +26,12 @@ public class Spritesheet {
 		return height;
 	}
 
+	public int[] getPixels() {
+		return pixels;
+	}
+
 	private void load() {
-		System.out.print("Trying to load Spritesheet from " + path + "...");
+		System.out.print("Trying to load Spritesheet from " + path + "... ");
 		try {
 			BufferedImage image = ImageIO.read(Spritesheet.class.getResource(path));
 			width = image.getWidth();
@@ -33,8 +40,8 @@ public class Spritesheet {
 			image.getRGB(0, 0, width, height, pixels, 0, width > height ? width : height);
 			System.out.println("done.");
 		} catch (IOException e) {
-			e.printStackTrace();
 			System.out.println("failed.");
+			e.printStackTrace();
 		}
 	}
 
