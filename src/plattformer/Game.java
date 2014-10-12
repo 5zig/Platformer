@@ -41,7 +41,6 @@ public class Game extends Canvas implements Runnable {
 		addMouseListener(mouse);
 		keyboard = new Keyboard(this);
 		addKeyListener(keyboard);
-		requestFocus();
 	}
 
 	public void create() {
@@ -77,6 +76,7 @@ public class Game extends Canvas implements Runnable {
 		double delta = 0;
 		long lastTimer = System.currentTimeMillis();
 		int ticks = 0, frames = 0;
+		requestFocus();
 		while (running) {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
