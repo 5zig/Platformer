@@ -1,8 +1,9 @@
 package plattformer.level.entities;
 
 import plattformer.level.Level;
+import plattformer.screens.Screen;
 
-public class Entity {
+public abstract class Entity {
 
 	protected int x, y;
 
@@ -12,8 +13,7 @@ public class Entity {
 		level.entities.add(this);
 	}
 
-	public void render() {
-	}
+	public abstract void render(Screen screen);
 
 	public void tick() {
 	}
