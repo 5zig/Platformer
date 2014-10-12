@@ -1,6 +1,10 @@
 package plattformer.level;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import plattformer.Game;
+import plattformer.level.entities.Entity;
 import plattformer.level.tiles.Tile;
 import plattformer.screens.Screen;
 
@@ -10,6 +14,8 @@ public class Level {
 	protected int width, height;
 
 	protected int[] tiles;
+
+	public List<Entity> entities = new ArrayList<Entity>();
 
 	public Level(Game game) {
 		this.game = game;
