@@ -14,4 +14,13 @@ public class Player extends Entity {
 	public void render(Screen screen) {
 		screen.renderSprite(Sprite.PLAYER_1, x, y, true);
 	}
+
+	@Override
+	public void tick() {
+		if (level.game.getKeyboard().up) y--;
+		if (level.game.getKeyboard().down) y++;
+		if (level.game.getKeyboard().left && x < 100) x--;
+		if (level.game.getKeyboard().right && x < 100) x++;
+
+	}
 }

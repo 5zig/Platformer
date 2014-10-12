@@ -10,7 +10,7 @@ import plattformer.screens.Screen;
 
 public class Level {
 
-	private Game game;
+	public Game game;
 	protected int width, height;
 
 	protected int[] tiles;
@@ -38,11 +38,14 @@ public class Level {
 		}
 		
 		for (int i = 0; i < entities.size(); i++) {
-			entities.get(i).render(screen);;
+			entities.get(i).render(screen);
 		}
 	}
 
 	public void tick() {
+		for (int i = 0; i < entities.size(); i++) {
+			entities.get(i).tick();
+		}
 	}
 
 	public Tile getTile(int x, int y) {
