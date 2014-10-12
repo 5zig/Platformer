@@ -11,7 +11,9 @@ import javax.swing.JFrame;
 
 import plattformer.input.Keyboard;
 import plattformer.input.Mouse;
+import plattformer.level.Level;
 import plattformer.level.SpawnLevel;
+import plattformer.level.entities.Player;
 import plattformer.screens.GameScreen;
 import plattformer.screens.Screen;
 
@@ -35,12 +37,16 @@ public class Game extends Canvas implements Runnable {
 	private Keyboard keyboard;
 	private Screen currentScreen;
 
+	private Player player;
+
 	public Game() {
-		currentScreen = new GameScreen(this, new SpawnLevel(this));
+		Level level = new SpawnLevel(this);
+		currentScreen = new GameScreen(this, level);
 		mouse = new Mouse(this);
 		addMouseListener(mouse);
 		keyboard = new Keyboard(this);
 		addKeyListener(keyboard);
+		player = new Player(level, 10, 10);
 	}
 
 	public void create() {
@@ -115,22 +121,22 @@ public class Game extends Canvas implements Runnable {
 		for (int i = 0; i < currentScreen.pixels.length; i++) {
 			pixels[i] = currentScreen.pixels[i];
 		}
-		
+
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		g.dispose();
 		bs.show();
 	}
-	
+
 	private void tick() {
 		currentScreen.tick();
 		keyboard.tick();
 	}
-	
+
 	public void displayScreen(Screen screen) {
 		this.currentScreen = screen;
 	}
-	
+
 	public Screen getCurrentScreen() {
 		return currentScreen;
 	}
@@ -146,7 +152,7 @@ public class Game extends Canvas implements Runnable {
 	public int getScale() {
 		return SCALE;
 	}
-	
+
 	public Keyboard getKeyboard() {
 		return keyboard;
 	}

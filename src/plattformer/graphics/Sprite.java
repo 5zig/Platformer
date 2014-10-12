@@ -9,6 +9,8 @@ public class Sprite {
 	public static final Sprite TESTSPRITE = new Sprite(SpriteSheet.TEST, 1, 0, 16);
 	public static final Sprite VOID = new Sprite(0x00AEFF, 16);
 
+	public static final Sprite PLAYER_1 = new Sprite(SpriteSheet.PLAYER, 0, 0, 32);
+
 	/**
 	 * Extract a sprite from the spritesheet with specific coordinates
 	 * 
@@ -33,11 +35,11 @@ public class Sprite {
 			}
 		}
 	}
-	
+
 	public Sprite(int col, int size) {
 		this.size = size;
 		pixels = new int[size * size];
-		
+
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = col;
 		}
