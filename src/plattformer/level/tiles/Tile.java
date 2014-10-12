@@ -7,8 +7,8 @@ public abstract class Tile {
 
 	public static final int COL_GRASS = 0xff00ff00;
 
-	public static final Tile GRASS = new Grass(Sprite.TEST);
-	public static final Tile VOID = new Grass(Sprite.TEST2);
+	public static final Tile GRASS = new Grass(Sprite.GRASS);
+	public static final Tile VOID = new Grass(Sprite.VOID);
 
 	private Sprite sprite;
 

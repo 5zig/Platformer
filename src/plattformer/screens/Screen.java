@@ -42,6 +42,7 @@ public abstract class Screen {
 			for (int x = 0; x < sprite.getSize(); x++) {
 				int xa = x + xp;
 				if (xa < -sprite.getSize() || xa >= game.getScaledWidth() || ya < 0 || ya >= game.getScaledHeight()) break;
+				if (xa < 0) xa = 0;
 				int col = sprite.getPixels()[x + y * sprite.getSize()];
 				if (col == 0xffff00ff) continue;
 				pixels[xa + ya * game.getScaledWidth()] = col;

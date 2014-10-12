@@ -124,6 +124,7 @@ public class Game extends Canvas implements Runnable {
 	
 	private void tick() {
 		currentScreen.tick();
+		keyboard.tick();
 	}
 	
 	public void displayScreen(Screen screen) {
@@ -144,5 +145,9 @@ public class Game extends Canvas implements Runnable {
 
 	public int getScale() {
 		return SCALE;
+	}
+	
+	public Keyboard getKeyboard() {
+		return keyboard;
 	}
 }
