@@ -31,7 +31,12 @@ public abstract class Screen {
 	public void onMouseClick(int x, int y, int button) {
 	}
 
-	public void renderSprite(Sprite sprite, int xp, int yp) {
+	public void renderSprite(Sprite sprite, int xp, int yp, boolean offset) {
+		if (offset) {
+			xp -= xOffset;
+			yp -= yOffset;
+		}
+		
 		for (int y = 0; y < sprite.getSize(); y++) {
 			int ya = y + yp;
 			for (int x = 0; x < sprite.getSize(); x++) {
