@@ -11,7 +11,8 @@ import javax.swing.JFrame;
 
 import plattformer.input.Keyboard;
 import plattformer.input.Mouse;
-import plattformer.screens.DebugScreen;
+import plattformer.level.SpawnLevel;
+import plattformer.screens.GameScreen;
 import plattformer.screens.Screen;
 
 public class Game extends Canvas implements Runnable {
@@ -35,7 +36,7 @@ public class Game extends Canvas implements Runnable {
 	private Screen currentScreen;
 
 	public Game() {
-		currentScreen = new DebugScreen(this);
+		currentScreen = new GameScreen(this, new SpawnLevel(this));
 		mouse = new Mouse(this);
 		addMouseListener(mouse);
 		keyboard = new Keyboard(this);

@@ -2,6 +2,7 @@ package plattformer.level;
 
 import plattformer.Game;
 import plattformer.level.tiles.Tile;
+import plattformer.screens.Screen;
 
 public class Level {
 
@@ -18,20 +19,25 @@ public class Level {
 	protected void loadLevel() {
 	}
 
-	public void render() {
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
-				getTile(x, y).render(game.getCurrentScreen(), x, y);
+	public void render(Screen screen, int xScroll, int yScroll) {
+		screen.setOffset(xScroll, yScroll);
+		int x0 = xScroll;
+		int x1 = xScroll + game.getScaledWidth();
+		int y0 = yScroll;
+		int y1 = yScroll + game.getScaledHeight();
+		for (int y = y0; y < y1; y++) {
+			for (int x = x0; x < x1; x++) {
+				getTile(x, y).render(screen, x, y);
 			}
 		}
 	}
 
-	public void update() {
+	public void tick() {
 	}
 
 	public Tile getTile(int x, int y) {
+		if (x < 0 || x >= width || y < 0 || y >= height) return Tile.GRASS;
 		if (tiles[x + y * width] == Tile.COL_GRASS) return Tile.GRASS;
 		return Tile.VOID;
 	}
-
 }

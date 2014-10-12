@@ -4,7 +4,8 @@ import plattformer.Game;
 import plattformer.graphics.Sprite;
 
 public abstract class Screen {
-
+	
+	protected int xOffset, yOffset;
 	protected Game game;
 	public int[] pixels;
 
@@ -41,5 +42,10 @@ public abstract class Screen {
 				pixels[xa + ya * game.getScaledWidth()] = col;
 			}
 		}
+	}
+	
+	public void setOffset(int xOffset, int yOffset) {
+		this.xOffset = xOffset;
+		this.yOffset = yOffset;
 	}
 }
