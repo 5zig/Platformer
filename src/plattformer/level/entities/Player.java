@@ -14,5 +14,4 @@ public class Player extends Entity {
 	public void render(Screen screen) {
 		screen.renderSprite(Sprite.PLAYER_1, x, y, true);
 	}
-
 }
