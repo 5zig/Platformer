@@ -8,6 +8,7 @@ public abstract class Tile {
 	public static final int COL_GRASS = 0xff00ff00;
 
 	public static final Tile GRASS = new Grass(Sprite.TEST);
+	public static final Tile VOID = new Grass(Sprite.TEST2);
 
 	private Sprite sprite;
 
@@ -24,7 +25,7 @@ public abstract class Tile {
 	}
 
 	public boolean isSolid() {
-		return true;
+		return false;
 	}
 
 }
