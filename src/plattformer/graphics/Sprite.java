@@ -7,7 +7,7 @@ public class Sprite {
 
 	public static final Sprite GRASS = new Sprite(SpriteSheet.TEST, 0, 0, 16);
 	public static final Sprite TESTSPRITE = new Sprite(SpriteSheet.TEST, 1, 0, 16);
-	public static final Sprite VOID = new Sprite(0xff00ff, 16);
+	public static final Sprite VOID = new Sprite(0x00AEFF, 16);
 
 	/**
 	 * Extract a sprite from the spritesheet with specific coordinates
