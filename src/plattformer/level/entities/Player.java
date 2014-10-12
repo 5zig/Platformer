@@ -19,8 +19,10 @@ public class Player extends Entity {
 	public void tick() {
 		if (level.game.getKeyboard().up) y--;
 		if (level.game.getKeyboard().down) y++;
-		if (level.game.getKeyboard().left && x < 100) x--;
-		if (level.game.getKeyboard().right && x < 100) x++;
+		if (level.game.getKeyboard().left) x--;
+		if (level.game.getKeyboard().right) x++;
+		
+
 
 	}
 }

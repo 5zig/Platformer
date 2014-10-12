@@ -46,7 +46,7 @@ public class Game extends Canvas implements Runnable {
 		addMouseListener(mouse);
 		keyboard = new Keyboard(this);
 		addKeyListener(keyboard);
-		player = new Player(level, 10, 10);
+		player = new Player(level, getScaledWidth() / 2 - 40, getScaledHeight() / 2);
 	}
 
 	public void create() {
@@ -155,5 +155,9 @@ public class Game extends Canvas implements Runnable {
 
 	public Keyboard getKeyboard() {
 		return keyboard;
+	}
+	
+	public Player getPlayer() {
+		return player;
 	}
 }

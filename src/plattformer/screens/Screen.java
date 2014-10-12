@@ -5,7 +5,7 @@ import plattformer.graphics.Sprite;
 
 public abstract class Screen {
 	
-	protected int xOffset, yOffset;
+	public int xOffset, yOffset;
 	protected Game game;
 	public int[] pixels;
 
