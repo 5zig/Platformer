@@ -17,20 +17,21 @@ public abstract class Mob extends Entity {
 	public boolean move(int xa, int ya) {
 		if (xa > 0) direction = 0;
 		if (xa < 0) direction = 1;
-		
+
 		int dirY = 0;
 		if (ya > 0) dirY = 0;
 		if (ya < 0) dirY = 1;
 
 		int xp = (int) (x + xa * speed);
 		int yp = (int) (y + ya * speed);
-		if (level.getTile(xp >> 4, y >> 4).isSolid() || (level.getTile((xp >> 4) - 1, y >> 4).isSolid() && direction == 1)
-				|| (level.getTile((xp >> 4) + 1, y >> 4).isSolid() && direction == 0)) {
+		if (level.getTile(xp >> 4, y - 1 >> 4).isSolid() || (level.getTile((xp >> 4) - 1, y - 1 >> 4).isSolid() && direction == 1)
+				|| (level.getTile((xp >> 4) + 1, y - 1 >> 4).isSolid() && direction == 0) || (level.getTile((xp >> 4) - 1, y - 2 >> 4).isSolid() && direction == 1)
+				|| (level.getTile((xp >> 4) + 1, y - 2 >> 4).isSolid() && direction == 0)) {
 			System.out.println("x");
 			return false;
 		}
 		x = xp;
-		if (level.getTile(x >> 4, yp >> 4).isSolid() || ((level.getTile(x >> 4, (yp >> 4) - 1).isSolid() || level.getTile(x >> 4, (yp >> 4) - 2).isSolid()) && dirY == 1)) {
+		if ((level.getTile(x >> 4, yp - 1 >> 4).isSolid() && dirY == 0) || ((level.getTile(x >> 4, (yp - 1>> 4) - 1).isSolid() || level.getTile(x >> 4, (yp >> 4) - 2).isSolid()) && dirY == 1)) {
 			System.out.println("y");
 			return false;
 		}
@@ -66,7 +67,7 @@ public abstract class Mob extends Entity {
 	}
 
 	public boolean onGround() {
-		return level.getTile(x >> 4, y + 1 >> 4).isSolid();
+		return level.getTile(x >> 4, y >> 4).isSolid();
 	}
 
 	private void updateVelocity() {
@@ -80,7 +81,6 @@ public abstract class Mob extends Entity {
 		if (onGround()) {
 			motX = 0.0f;
 			motY = 0.0f;
-			System.out.println("on ground");
 			return;
 		}
 
