@@ -12,7 +12,7 @@ public class Player extends Mob {
 	}
 
 	public void render(Screen screen) {
-		screen.renderSprite(Sprite.PLAYER_1, x - 16, y - 16, direction, true);
+		screen.renderSprite(Sprite.PLAYER_1, x - 16, y - 32, direction, true);
 	}
 
 	public void tick() {
