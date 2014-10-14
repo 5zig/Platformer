@@ -34,7 +34,7 @@ public class DebugScreen extends Screen {
 			pixels[i] = i + ticks;
 		}
 
-		renderSprite(Sprite.TESTSPRITE, x, y, false);
+		renderSprite(Sprite.TESTSPRITE, x, y, 0, false);
 	}
 
 	@Override
