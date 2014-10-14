@@ -31,5 +31,6 @@ public class GameScreen extends Screen {
 		int maxheight = level.getHeight();
 		if (yScroll > maxheight) yScroll = maxheight;
 		if (yScroll < 0) yScroll = 0;
+
 	}
 }
