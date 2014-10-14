@@ -22,7 +22,7 @@ public class GameScreen extends Screen {
 
 		xScroll = game.getPlayer().getX() - game.getScaledWidth() / 2;
 		yScroll = game.getPlayer().getY() - game.getScaledHeight() / 2;
-		
+
 		// allow screen scroll only til max
 		int maxwidth = level.getWidth();
 		if (xScroll > maxwidth) xScroll = maxwidth;
@@ -31,6 +31,5 @@ public class GameScreen extends Screen {
 		int maxheight = level.getHeight();
 		if (yScroll > maxheight) yScroll = maxheight;
 		if (yScroll < 0) yScroll = 0;
-
 	}
 }
