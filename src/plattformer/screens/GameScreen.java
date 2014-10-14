@@ -20,8 +20,8 @@ public class GameScreen extends Screen {
 	public void tick() {
 		level.tick();
 
-		xScroll = game.getPlayer().getX();
-		yScroll = game.getPlayer().getY();
+		xScroll = game.getPlayer().getX() - game.getScaledWidth() / 2;
+		yScroll = game.getPlayer().getY() - game.getScaledHeight() / 2;
 		
 		// allow screen scroll only til max
 		int maxwidth = level.getWidth();
