@@ -76,8 +76,5 @@ public abstract class Mob extends Entity {
 			motX = (motX != 0) ? -0.2f : 0.0f;
 			motY = (motY != 0) ? -0.2f : 0.0f;
 		}
-
-		// System.out.println(motX + ", " + motY);
-
 	}
 }
