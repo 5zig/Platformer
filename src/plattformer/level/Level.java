@@ -53,4 +53,12 @@ public class Level {
 		if (tiles[x + y * width] == Tile.COL_GRASS) return Tile.GRASS;
 		return Tile.VOID;
 	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
 }

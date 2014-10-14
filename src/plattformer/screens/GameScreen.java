@@ -6,7 +6,6 @@ import plattformer.level.Level;
 public class GameScreen extends Screen {
 
 	private Level level;
-
 	private int xScroll, yScroll;
 
 	public GameScreen(Game game, Level level) {
@@ -19,20 +18,18 @@ public class GameScreen extends Screen {
 	}
 
 	public void tick() {
-		if (game.getKeyboard().up) yScroll--;
-		if (game.getKeyboard().down) yScroll++;
-		if (game.getKeyboard().left) xScroll--;
-		if (game.getKeyboard().right) xScroll++;
-
-		// allow screen scroll only till max
-		int maxwidth = 80;
-		if (xScroll > maxwidth || game.getPlayer().getX() > maxwidth + game.getScaledWidth() / 2 - 40) xScroll = maxwidth;
-		if (xScroll < 0 || game.getPlayer().getX() < 0 + game.getScaledWidth() / 2 - 40) xScroll = 0;
-
-		int maxheight = 20;
-		if (yScroll > maxheight || game.getPlayer().getY() > maxheight + game.getScaledHeight() / 2) yScroll = maxheight;
-		if (yScroll < -maxheight || game.getPlayer().getY() < -maxheight + game.getScaledHeight() / 2) yScroll = -maxheight;
-
 		level.tick();
+
+		xScroll = game.getPlayer().getX();
+		yScroll = game.getPlayer().getY();
+		
+		// allow screen scroll only til max
+		int maxwidth = level.getWidth();
+		if (xScroll > maxwidth) xScroll = maxwidth;
+		if (xScroll < 0) xScroll = 0;
+
+		int maxheight = level.getHeight();
+		if (yScroll > maxheight) yScroll = maxheight;
+		if (yScroll < 0) yScroll = 0;
 	}
 }
