@@ -17,7 +17,7 @@ public abstract class Tile {
 	}
 
 	public void render(Screen screen, int xp, int yp) {
-		screen.renderSprite(sprite, xp << 4, yp << 4, true);
+		screen.renderSprite(sprite, xp << 4, yp << 4, 0, true);
 	}
 
 	public Sprite getSprite() {
