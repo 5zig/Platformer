@@ -21,18 +21,17 @@ public abstract class Mob extends Entity {
 		int dirY = 0;
 		if (ya > 0) dirY = 0;
 		if (ya < 0) dirY = 1;
+		System.out.println(dirY);
 
 		int xp = (int) (x + xa * speed);
 		int yp = (int) (y + ya * speed);
-		if (level.getTile(xp >> 4, y - 1 >> 4).isSolid() || (level.getTile((xp >> 4) - 1, y - 1 >> 4).isSolid() && direction == 1)
-				|| (level.getTile((xp >> 4) + 1, y - 1 >> 4).isSolid() && direction == 0) || (level.getTile((xp >> 4) - 1, y - 2 >> 4).isSolid() && direction == 1)
-				|| (level.getTile((xp >> 4) + 1, y - 2 >> 4).isSolid() && direction == 0)) {
-			System.out.println("x");
-			return false;
-		}
+//		if ((level.getTile((xp >> 4) + 1, y - 1 >> 4).isSolid() && direction == 0) || (level.getTile((xp >> 4) - 1, y - 2 >> 4).isSolid() && direction == 1)) {
+////			System.out.println("x");
+//			return false;
+//		}
 		x = xp;
-		if ((level.getTile(x >> 4, yp - 1 >> 4).isSolid() && dirY == 0) || ((level.getTile(x >> 4, (yp - 1>> 4) - 1).isSolid() || level.getTile(x >> 4, (yp >> 4) - 2).isSolid()) && dirY == 1)) {
-			System.out.println("y");
+		if ((onGround() && dirY == 0) || ((level.getTile(x >> 4, (yp >> 4) - 1).isSolid() || level.getTile(x >> 4, (yp >> 4) - 2).isSolid()) && dirY == 1)) {
+//			System.out.println("y");
 			return false;
 		}
 		y = yp;
@@ -41,6 +40,9 @@ public abstract class Mob extends Entity {
 
 	@Override
 	public void tick() {
+		if (!hasVelocity() && !onGround()) {
+			move(0, 3);
+		}
 		updateVelocity();
 	}
 
@@ -67,28 +69,24 @@ public abstract class Mob extends Entity {
 	}
 
 	public boolean onGround() {
-		return level.getTile(x >> 4, y >> 4).isSolid();
+		return level.getTile(x >> 4, y + 1 >> 4).isSolid();
 	}
 
 	private void updateVelocity() {
 		boolean moved = true;
-		if (motX != 0 || motY != 0) moved = move((int) -(motX * 2), (int) -(motY * 2));
+		moved = move(-(int) (motX * 6), -(int) (motY * 6));
 
-		if (motX != 0) motX -= 0.2;
-		if (motY != 0) motY -= 0.2;
-		else motY = -0.2f;
+		if (motX > 0) motX -= 0.2;
+		else motX = 0;
+		if (motY > 0) motY -= 0.2;
+		else motY = 0;
 
-		if (onGround()) {
+		if (!moved || onGround()) {
 			motX = 0.0f;
 			motY = 0.0f;
 			return;
 		}
 
-		if (!moved) {
-			motX = (motX != 0) ? -0.2f : 0.0f;
-			motY = (motY != 0) ? -0.2f : 0.0f;
-		}
-
-		System.out.println(motY);
+//		System.out.println(motY);
 	}
 }
