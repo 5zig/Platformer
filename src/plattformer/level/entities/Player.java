@@ -23,7 +23,7 @@ public class Player extends Mob {
 		if (level.game.getKeyboard().right) xa++;
 
 		if (level.game.getKeyboard().space || level.game.getKeyboard().up) {
-			if (!hasVelocity() && onGround()) setVelocity(new Vector2f(0.0f, 1.5f));
+			if (!hasVelocity() && onGround()) setVelocity(new Vector2f(0.0f, 2.4f));
 		}
 
 		if (xa != 0 || ya != 0) move(xa, ya);
