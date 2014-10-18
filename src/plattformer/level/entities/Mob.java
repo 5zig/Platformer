@@ -6,7 +6,7 @@ import plattformer.util.Vector2f;
 public abstract class Mob extends Entity {
 
 	protected float speed;
-	protected int direction;
+	protected Direction direction = Direction.RIGHT;
 	protected float motX = 0, motY = 0;
 	protected float fallDistance = 0;
 
@@ -16,15 +16,10 @@ public abstract class Mob extends Entity {
 	}
 
 	public void move(int xa, int ya) {
-		if (xa > 0) direction = 0;
-		if (xa < 0) direction = 1;
-
-		int dirY = 0;
-		if (ya > 0) dirY = 0;
-		if (ya < 0) dirY = 1;
-
-		int xp = (int) (x + xa * speed);
-		int yp = (int) (y + ya * speed);
+		if (xa > 0) direction = Direction.RIGHT;
+		if (xa < 0) direction = Direction.LEFT;
+		// if (ya > 0) direction = Direction.UP;
+		// if (ya < 0) direction = Direction.DOWN;
 
 		while (xa != 0) {
 			if (Math.abs(xa) > 1) {
@@ -70,7 +65,6 @@ public abstract class Mob extends Entity {
 			fallDistance += 1.0 / 16.0;
 			motY *= 1.7;
 		}
-		if (fallDistance > 0) System.out.println(fallDistance);
 		updateVelocity();
 	}
 
@@ -90,7 +84,7 @@ public abstract class Mob extends Entity {
 		return speed;
 	}
 
-	public int getDirection() {
+	public Direction getDirection() {
 		return direction;
 	}
 
@@ -115,14 +109,16 @@ public abstract class Mob extends Entity {
 		if (motY > 0) motY -= 0.2;
 		else motY = 0;
 
-		if (onGround()) fallDistance = 0;
-
-		if (onGround()) {
+		if (collision(0, 1)) {
 			motX = 0.0f;
 			motY = 0.0f;
-			return;
+			fallDistance = 0;
 		}
+	}
 
-		// System.out.println(motY);
+	public enum Direction {
+
+		RIGHT, LEFT, DOWN, UP
+
 	}
 }

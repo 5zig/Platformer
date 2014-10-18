@@ -12,7 +12,7 @@ public class Player extends Mob {
 	}
 
 	public void render(Screen screen) {
-		screen.renderSprite(Sprite.PLAYER_1, x - 16, y - 32, direction, true);
+		screen.renderSprite(Sprite.PLAYER_1, x - 16, y - 32, direction.ordinal(), true);
 	}
 
 	public void tick() {
@@ -23,7 +23,7 @@ public class Player extends Mob {
 		if (level.game.getKeyboard().right) xa++;
 
 		if (level.game.getKeyboard().space || level.game.getKeyboard().up) {
-			if (!hasVelocity() && onGround()) setVelocity(new Vector2f(0.0f, 2.4f));
+			if (!hasVelocity() && onGround()) setVelocity(new Vector2f(0.0f, 2.0f));
 		}
 
 		if (xa != 0 || ya != 0) move(xa, ya);
