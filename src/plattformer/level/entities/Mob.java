@@ -23,12 +23,12 @@ public abstract class Mob extends Entity {
 
 		while (xa != 0) {
 			if (Math.abs(xa) > 1) {
-				if (!collision(abs(xa), (int) ya)) {
+				if (!collision(abs(xa), ya)) {
 					this.x += abs(xa);
 				}
 				xa -= abs(xa);
 			} else {
-				if (!collision(abs(xa), (int) ya)) {
+				if (!collision(abs(xa), ya)) {
 					this.x += xa;
 				}
 				xa = 0;
@@ -37,12 +37,12 @@ public abstract class Mob extends Entity {
 
 		while (ya != 0) {
 			if (Math.abs(ya) > 1) {
-				if (!collision((int) xa, abs(ya))) {
+				if (!collision(xa, abs(ya))) {
 					this.y += abs(ya);
 				}
 				ya -= abs(ya);
 			} else {
-				if (!collision((int) xa, abs(ya))) {
+				if (!collision(xa, abs(ya))) {
 					this.y += ya;
 				}
 				ya = 0;
@@ -71,8 +71,9 @@ public abstract class Mob extends Entity {
 	private boolean collision(int xa, int ya) {
 		boolean solid = false;
 		for (int c = 0; c < 4; c++) {
-			double xt = ((x + xa) - c % 2 * 16) / 16;
-			double yt = ((y + ya) - c / 2 * 16) / 16;
+            System.out.println(((x + xa) - c % 2 * 16) / 16);
+            double xt = ((x + 8 + xa) - c % 2 * 16) / 16;
+			double yt = ((y - 1 + ya) - c / 2 * 16) / 16;
 			int ix = (int) Math.ceil(xt);
 			int iy = (int) Math.ceil(yt);
 			if (level.getTile(ix, iy).isSolid()) solid = true;

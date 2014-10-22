@@ -19,7 +19,7 @@ public class SpawnLevel extends Level {
 	protected void loadLevel() {
 		System.out.print("Trying to load Spritesheet from " + path + "... ");
 		try {
-			BufferedImage image = ImageIO.read(SpawnLevel.class.getResource(path));
+            BufferedImage image = ImageIO.read(getClass().getResource(path));
 			width = image.getWidth();
 			height = image.getHeight();
 			tiles = new int[width * height];
