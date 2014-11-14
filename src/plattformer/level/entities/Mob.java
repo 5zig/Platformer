@@ -18,25 +18,23 @@ public abstract class Mob extends Entity {
 		if (xa > 0) direction = 0;
 		if (xa < 0) direction = 1;
 
-		/*int dirY = 0;
+		int dirY = 0;
 		if (ya > 0) dirY = 0;
 		if (ya < 0) dirY = 1;
-		System.out.println(dirY);*/
-		
-		if (!collision(xa, ya)) {
-			x += xa * speed;
-			y += ya * speed;
-		}
-/*		if ((level.getTile((xp >> 4) + 1, y - 1 >> 4).isSolid() && direction == 0) || (level.getTile((xp >> 4) - 1, y - 2 >> 4).isSolid() && direction == 1)) {
-			System.out.println("x");
-			return false;
-		}
+		System.out.println(dirY);
+
+		int xp = (int) (x + xa * speed);
+		int yp = (int) (y + ya * speed);
+//		if ((level.getTile((xp >> 4) + 1, y - 1 >> 4).isSolid() && direction == 0) || (level.getTile((xp >> 4) - 1, y - 2 >> 4).isSolid() && direction == 1)) {
+////			System.out.println("x");
+//			return false;
+//		}
 		x = xp;
 		if ((onGround() && dirY == 0) || ((level.getTile(x >> 4, (yp >> 4) - 1).isSolid() || level.getTile(x >> 4, (yp >> 4) - 2).isSolid()) && dirY == 1)) {
-			System.out.println("y");
+//			System.out.println("y");
 			return false;
 		}
-		y = yp;*/
+		y = yp;
 		return true;
 	}
 
@@ -48,8 +46,9 @@ public abstract class Mob extends Entity {
 		updateVelocity();
 	}
 
-	public boolean collision(int xa, int ya) {
-		return level.getTile((x + xa) / 16, (y + ya) / 16).isSolid();
+	public boolean collision() {
+		/* Soon */
+		return false;
 	}
 
 	public float getSpeed() {
