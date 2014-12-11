@@ -55,6 +55,9 @@ public abstract class Screen {
 	}
 
 	public void drawQuad(int color, int xp, int yp, int width, int height) {
+		xp -= xOffset;
+		yp -= yOffset;
+
 		for (int y = 0; y < height; y++) {
 			int ya = y + yp;
 			for (int x = 0; x < width; x++) {
