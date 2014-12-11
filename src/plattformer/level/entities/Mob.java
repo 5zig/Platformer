@@ -1,13 +1,18 @@
 package plattformer.level.entities;
 
 import plattformer.level.Level;
-import plattformer.math.Vector2f;
 
 public abstract class Mob extends Entity {
 
 	protected float speed;
 	protected int direction;
-	protected float motX = 0, motY = 0;
+
+	private final double GRAVITY = 1000;
+	private double yVelocity;
+
+	protected int jumpTimes;
+	protected boolean jumpKeyPressed;
+	protected boolean canJump;
 
 	public Mob(Level level, int x, int y) {
 		super(level, x, y);
@@ -29,20 +34,37 @@ public abstract class Mob extends Entity {
 //			return false;
 //		}
 		x = xp;
-		if ((onGround() && dirY == 0) || ((level.getTile(x >> 4, (yp >> 4) - 1).isSolid() || level.getTile(x >> 4, (yp >> 4) - 2).isSolid()) && dirY == 1)) {
-//			System.out.println("y");
-			return false;
-		}
+//		if ((onGround() && dirY == 0) || ((level.getTile(x >> 4, (yp >> 4) - 1).isSolid() || level.getTile(x >> 4, (yp >> 4) - 2).isSolid()) && dirY == 1)) {
+////			System.out.println("y");
+//			return false;
+//		}
 		y = yp;
 		return true;
 	}
 
+	protected void jump() {
+		yVelocity = 240;
+		jumpTimes++;
+	}
+
 	@Override
 	public void tick() {
-		if (!hasVelocity() && !onGround()) {
-			move(0, 3);
+		canJump = jumpTimes < 2;
+
+		yVelocity -= GRAVITY * (1.0 / 60.0);
+		y -= yVelocity * (1.0 / 60.0);
+
+		if (onGround()) {
+			yVelocity = 0;
+//			y = terrainHeight;
+			jumpKeyPressed = false;
+			if (jumpTimes != 0) {
+				jumpTimes = 0;
+			}
 		}
-		updateVelocity();
+
+
+//		move(0, 3);
 	}
 
 	public boolean collision() {
@@ -58,34 +80,8 @@ public abstract class Mob extends Entity {
 		return direction;
 	}
 
-	public void setVelocity(Vector2f vec2f) {
-		this.motX = vec2f.getX();
-		this.motY = vec2f.getY();
-	}
-
-	public boolean hasVelocity() {
-		return motX != 0 || motY != 0;
-	}
-
 	public boolean onGround() {
-		return level.getTile(x >> 4, y + 1 >> 4).isSolid();
+		return level.getTile(x >> 4, y >> 4).isSolid();
 	}
 
-	private void updateVelocity() {
-		boolean moved = true;
-		moved = move(-(int) (motX * 6), -(int) (motY * 6));
-
-		if (motX > 0) motX -= 0.2;
-		else motX = 0;
-		if (motY > 0) motY -= 0.2;
-		else motY = 0;
-
-		if (!moved || onGround()) {
-			motX = 0.0f;
-			motY = 0.0f;
-			return;
-		}
-
-//		System.out.println(motY);
-	}
 }

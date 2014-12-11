@@ -2,7 +2,6 @@ package plattformer.level.entities;
 
 import plattformer.graphics.Sprite;
 import plattformer.level.Level;
-import plattformer.math.Vector2f;
 import plattformer.screens.Screen;
 
 import java.awt.*;
@@ -25,8 +24,13 @@ public class Player extends Mob {
 		if (level.game.getKeyboard().left) xa--;
 		if (level.game.getKeyboard().right) xa++;
 
-		if (level.game.getKeyboard().space || level.game.getKeyboard().up) {
-			if (!hasVelocity() && onGround()) setVelocity(new Vector2f(0.0f, 2.0f));
+		if (level.game.getKeyboard().up || level.game.getKeyboard().space) {
+			if (canJump && !jumpKeyPressed) {
+				jump();
+			}
+			jumpKeyPressed = true;
+		} else {
+			jumpKeyPressed = false;
 		}
 
 		if (xa != 0 || ya != 0) move(xa, ya);
