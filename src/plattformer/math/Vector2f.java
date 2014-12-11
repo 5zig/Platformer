@@ -1,4 +1,4 @@
-package plattformer.util;
+package plattformer.math;
 
 public class Vector2f {
 

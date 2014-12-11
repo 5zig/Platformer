@@ -53,6 +53,16 @@ public abstract class Screen {
 			}
 		}
 	}
+
+	public void drawQuad(int color, int xp, int yp, int width, int height) {
+		for (int y = 0; y < height; y++) {
+			int ya = y + yp;
+			for (int x = 0; x < width; x++) {
+				int xa = x + xp;
+				pixels[xa + ya * Game.WIDTH] = color;
+			}
+		}
+	}
 	
 	public void setOffset(int xOffset, int yOffset) {
 		this.xOffset = xOffset;

@@ -1,14 +1,5 @@
 package plattformer;
 
-import java.awt.Canvas;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
-
-import javax.swing.JFrame;
-
 import plattformer.input.Keyboard;
 import plattformer.input.Mouse;
 import plattformer.level.Level;
@@ -17,16 +8,22 @@ import plattformer.level.entities.Player;
 import plattformer.screens.GameScreen;
 import plattformer.screens.Screen;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
+
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = -114521740095634942L;
 
-	private JFrame frame;
-	private final String TITLE = "Platformer";
-	private final int WIDTH = 300;
-	private final int HEIGHT = WIDTH * 9 / 16;
-	private final int SCALE = 3;
+	public static final String TITLE = "Platformer";
+	public static final int WIDTH = 300;
+	public static final int HEIGHT = WIDTH * 9 / 16;
+	public static final int SCALE = 3;
 
+	private JFrame frame;
 	private Thread mainThread;
 	private boolean running;
 

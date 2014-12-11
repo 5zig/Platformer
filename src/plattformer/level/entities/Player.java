@@ -1,9 +1,12 @@
 package plattformer.level.entities;
 
+import plattformer.Game;
 import plattformer.graphics.Sprite;
 import plattformer.level.Level;
+import plattformer.math.Vector2f;
 import plattformer.screens.Screen;
-import plattformer.util.Vector2f;
+
+import java.awt.*;
 
 public class Player extends Mob {
 
@@ -12,7 +15,8 @@ public class Player extends Mob {
 	}
 
 	public void render(Screen screen) {
-		screen.renderSprite(Sprite.PLAYER_1, x - 16, y - 32, direction.ordinal(), true);
+		screen.renderSprite(Sprite.PLAYER_1, x - 16, y - 32, direction, true);
+		screen.drawQuad(0xff0000, (int) getBounds().getX(), (int) getBounds().getY(), (int) getBounds().getWidth(), (int) getBounds().getHeight());
 	}
 
 	public void tick() {
@@ -27,5 +31,9 @@ public class Player extends Mob {
 		}
 
 		if (xa != 0 || ya != 0) move(xa, ya);
+	}
+
+	public Rectangle getBounds() {
+		return new Rectangle(x * Game.SCALE, y * Game.SCALE, 10 * Game.SCALE, 10 * Game.SCALE);
 	}
 }

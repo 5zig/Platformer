@@ -1,7 +1,7 @@
 package plattformer.level.entities;
 
 import plattformer.level.Level;
-import plattformer.util.Vector2f;
+import plattformer.math.Vector2f;
 
 public abstract class Mob extends Entity {
 
@@ -21,7 +21,6 @@ public abstract class Mob extends Entity {
 		int dirY = 0;
 		if (ya > 0) dirY = 0;
 		if (ya < 0) dirY = 1;
-		System.out.println(dirY);
 
 		int xp = (int) (x + xa * speed);
 		int yp = (int) (y + ya * speed);
