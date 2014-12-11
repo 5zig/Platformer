@@ -1,6 +1,5 @@
 package plattformer.level.entities;
 
-import plattformer.Game;
 import plattformer.graphics.Sprite;
 import plattformer.level.Level;
 import plattformer.math.Vector2f;
@@ -34,6 +33,6 @@ public class Player extends Mob {
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle(x, y, 10 * Game.SCALE, 10 * Game.SCALE);
+		return new Rectangle(x - 16, y - 32, 32, 32);
 	}
 }

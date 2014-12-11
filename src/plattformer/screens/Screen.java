@@ -63,6 +63,7 @@ public abstract class Screen {
 			for (int x = 0; x < width; x++) {
 				int xa = x + xp;
 				if (xa < 0 || xa >= game.getScaledWidth() || ya < 0 || ya >= game.getScaledHeight()) break;
+				if (x != 0 && x != width - 1 && y != 0 && y != height - 1) continue;
 				pixels[xa + ya * Game.WIDTH] = color;
 			}
 		}
