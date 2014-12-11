@@ -15,7 +15,7 @@ public class Player extends Mob {
 
 	public void render(Screen screen) {
 		screen.renderSprite(Sprite.PLAYER_1, x - 16, y - 32, direction, true);
-		screen.drawQuad(0xff0000, (int) getBounds().getX(), (int) getBounds().getY(), (int) getBounds().getWidth(), (int) getBounds().getHeight());
+		if (level.game.showHitboxes) screen.drawQuad(0xff0000, (int) getBounds().getX(), (int) getBounds().getY(), (int) getBounds().getWidth(), (int) getBounds().getHeight());
 	}
 
 	public void tick() {

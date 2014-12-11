@@ -21,7 +21,7 @@ public class Game extends Canvas implements Runnable {
 	public static final String TITLE = "Platformer";
 	public static final int WIDTH = 300;
 	public static final int HEIGHT = WIDTH * 9 / 16;
-	public static final int SCALE = 3;
+	public static final int SCALE = 4;
 
 	private JFrame frame;
 	private Thread mainThread;
@@ -35,6 +35,8 @@ public class Game extends Canvas implements Runnable {
 	private Screen currentScreen;
 
 	private Player player;
+
+	public boolean showHitboxes = false;
 
 	public Game() {
 		Level level = new SpawnLevel(this);
@@ -128,7 +130,18 @@ public class Game extends Canvas implements Runnable {
 	private void tick() {
 		currentScreen.tick();
 		keyboard.tick();
+
+		if (keyboard.hitbox) {
+			if (!hitboxKeyPressed) {
+				showHitboxes = !showHitboxes;
+			}
+			hitboxKeyPressed = true;
+		} else {
+			hitboxKeyPressed = false;
+		}
 	}
+
+	private boolean hitboxKeyPressed = false;
 
 	public void displayScreen(Screen screen) {
 		this.currentScreen = screen;

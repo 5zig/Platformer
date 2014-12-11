@@ -1,16 +1,16 @@
 package plattformer.input;
 
+import plattformer.Game;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import plattformer.Game;
 
 public class Keyboard implements KeyListener {
 
 	private Game game;
 
-	public boolean[] keys = new boolean[65536];
-	public boolean up, down, left, right, space;
+	public boolean[] keys = new boolean[Short.MAX_VALUE];
+	public boolean up, down, left, right, space, hitbox;
 
 	public Keyboard(Game game) {
 		this.game = game;
@@ -22,6 +22,7 @@ public class Keyboard implements KeyListener {
 		left = keys[KeyEvent.VK_LEFT] || keys[KeyEvent.VK_A];
 		right = keys[KeyEvent.VK_RIGHT] || keys[KeyEvent.VK_D];
 		space = keys[KeyEvent.VK_SPACE];
+		hitbox = keys[KeyEvent.VK_H] && keys[KeyEvent.VK_SHIFT];
 	}
 
 	public void keyPressed(KeyEvent e) {
