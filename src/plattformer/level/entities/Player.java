@@ -34,6 +34,6 @@ public class Player extends Mob {
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle(x * Game.SCALE, y * Game.SCALE, 10 * Game.SCALE, 10 * Game.SCALE);
+		return new Rectangle(x, y, 10 * Game.SCALE, 10 * Game.SCALE);
 	}
 }
