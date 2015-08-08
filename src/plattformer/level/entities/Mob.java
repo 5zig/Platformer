@@ -4,84 +4,172 @@ import plattformer.level.Level;
 
 public abstract class Mob extends Entity {
 
-	protected float speed;
+	protected double dx, dy;
+
 	protected int direction;
 
-	private final double GRAVITY = 1000;
-	private double yVelocity;
+	protected boolean left, right;
+	protected boolean jumping;
+	protected boolean airborne;
 
-	protected int jumpTimes;
-	protected boolean jumpKeyPressed;
-	protected boolean canJump;
+	protected double movementSpeed = 0.3;
+	protected double maxMovementSpeed = 3.0;
+	protected double maxFallingSpeed = 6;
+	protected double stopMovementSpeed = 0.3;
+	protected double jumpMomentum = -6;
+	protected double gravity = 0.3;
+
+	// Collision variables
+	protected boolean topLeft;
+	protected boolean topRight;
+	protected boolean bottomLeft;
+	protected boolean bottomRight;
 
 	public Mob(Level level, int x, int y) {
 		super(level, x, y);
-		speed = 1;
-	}
-
-	public boolean move(int xa, int ya) {
-		if (xa > 0) direction = 0;
-		if (xa < 0) direction = 1;
-
-		int dirY = 0;
-		if (ya > 0) dirY = 0;
-		if (ya < 0) dirY = 1;
-
-		int xp = (int) (x + xa * speed);
-		int yp = (int) (y + ya * speed);
-//		if ((level.getTile((xp >> 4) + 1, y - 1 >> 4).isSolid() && direction == 0) || (level.getTile((xp >> 4) - 1, y - 2 >> 4).isSolid() && direction == 1)) {
-////			System.out.println("x");
-//			return false;
-//		}
-		x = xp;
-//		if ((onGround() && dirY == 0) || ((level.getTile(x >> 4, (yp >> 4) - 1).isSolid() || level.getTile(x >> 4, (yp >> 4) - 2).isSolid()) && dirY == 1)) {
-////			System.out.println("y");
-//			return false;
-//		}
-		y = yp;
-		return true;
 	}
 
 	protected void jump() {
-		yVelocity = 240;
-		jumpTimes++;
+		if (!airborne)
+			jumping = true;
 	}
 
 	@Override
 	public void tick() {
-		canJump = jumpTimes < 2;
-
-		yVelocity -= GRAVITY * (1.0 / 60.0);
-		y -= yVelocity * (1.0 / 60.0);
-
-		if (onGround()) {
-			yVelocity = 0;
-//			y = terrainHeight;
-			jumpKeyPressed = false;
-			if (jumpTimes != 0) {
-				jumpTimes = 0;
+		if (left) {
+			direction = 1;
+			dx -= movementSpeed;
+			if (dx < -maxMovementSpeed) {
+				dx = -maxMovementSpeed;
+			}
+		} else if (right) {
+			direction = 0;
+			dx += movementSpeed;
+			if (dx > maxMovementSpeed) {
+				dx = maxMovementSpeed;
+			}
+		} else {
+			if (dx > 0) {
+				dx -= stopMovementSpeed;
+				if (dx < 0) {
+					dx = 0;
+				}
+			}
+			if (dx < 0) {
+				dx += stopMovementSpeed;
+				if (dx > 0) {
+					dx = 0;
+				}
 			}
 		}
 
+		if (jumping) {
+			dy = jumpMomentum;
+			airborne = true;
+			jumping = false;
+		}
 
-//		move(0, 3);
+		if (airborne) {
+			dy += gravity;
+			if (dy > maxFallingSpeed) {
+				dy = maxFallingSpeed;
+			}
+		} else {
+			dy = 0;
+		}
+
+		// Collision Detection
+
+		int col = level.getColTile(x);
+		int row = level.getRowTile(y);
+
+		double tempX = x;
+		double tempY = y;
+
+		// Foreseeing the future positions! (??_?)
+		double toX = x + dx;
+		double toY = y + dy;
+
+		checkCollision(x, toY);
+		if (dy < 0) {
+			if (topLeft || topRight) {
+				dy = 0;
+				tempY = row * 16 + getBounds().getHeight() / 2;
+			} else {
+				tempY += dy;
+			}
+		}
+		if (dy > 0) {
+			if (bottomLeft || bottomRight) {
+				dy = 0;
+				airborne = false;
+				tempY = (row + 1) * 16 - getBounds().getHeight() / 2;
+			} else {
+				tempY += dy;
+			}
+		}
+
+		checkCollision(toX, y);
+		if (dx < 0) {
+			if (topLeft || bottomLeft) {
+				dx = 0;
+				tempX = col * 16 + getBounds().getWidth() / 2;
+			} else {
+				tempX += dx;
+			}
+		}
+		if (dx > 0) {
+			if (topRight || bottomRight) {
+				dx = 0;
+				tempX = (col + 1) * 16 - getBounds().getWidth() / 2;
+			} else {
+				tempX += dx;
+			}
+		}
+
+		if (!airborne) {
+			checkCollision(x, y + 1);
+			if (!bottomLeft && !bottomRight) {
+				airborne = true;
+			}
+		}
+
+		x = (int) tempX;
+		y = (int) tempY;
 	}
 
-	public boolean collision() {
-		/* Soon */
-		return false;
+	private void checkCollision(double x, double y) {
+		int leftTile = level.getColTile((int) (x - getBounds().getWidth() / 2));
+		int rightTile = level.getColTile((int) (x + getBounds().getWidth() / 2) - 1);
+		int topTile = level.getRowTile((int) (y - getBounds().getHeight() / 2));
+		int bottomTile = level.getRowTile((int) (y + getBounds().getHeight() / 2) - 1);
+		topLeft = level.getTile(leftTile, topTile).isSolid();
+		topRight = level.getTile(rightTile, topTile).isSolid();
+		bottomLeft = level.getTile(leftTile, bottomTile).isSolid();
+		bottomRight = level.getTile(rightTile, bottomTile).isSolid();
 	}
 
-	public float getSpeed() {
-		return speed;
+	public boolean isLeft() {
+		return left;
+	}
+
+	public void setLeft(boolean left) {
+		this.left = left;
+	}
+
+	public boolean isRight() {
+		return right;
+	}
+
+	public void setRight(boolean right) {
+		this.right = right;
 	}
 
 	public int getDirection() {
 		return direction;
 	}
 
-	public boolean onGround() {
-		return level.getTile(x >> 4, y >> 4).isSolid();
+	public void setDirection(int direction) {
+		this.direction = direction;
 	}
-
 }

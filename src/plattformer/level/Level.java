@@ -1,24 +1,26 @@
 package plattformer.level;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import plattformer.Game;
 import plattformer.level.entities.Entity;
 import plattformer.level.tiles.Tile;
 import plattformer.screens.Screen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Level {
 
 	public Game game;
 	protected int width, height;
+	protected int tileSize;
 
 	protected int[] tiles;
 
 	public List<Entity> entities = new ArrayList<Entity>();
 
-	public Level(Game game) {
+	public Level(Game game, int tileSize) {
 		this.game = game;
+		this.tileSize = tileSize;
 		loadLevel();
 	}
 
@@ -48,6 +50,14 @@ public class Level {
 		}
 	}
 
+	public int getColTile(int x) {
+		return x / tileSize;
+	}
+
+	public int getRowTile(int y) {
+		return y / tileSize;
+	}
+
 	public Tile getTile(int x, int y) {
 		if (x < 0 || x >= width || y < 0 || y >= height) return Tile.VOID;
 		if (tiles[x + y * width] == Tile.COL_GRASS) return Tile.GRASS;
@@ -60,5 +70,9 @@ public class Level {
 	
 	public int getHeight() {
 		return height;
+	}
+
+	public int getTileSize() {
+		return tileSize;
 	}
 }

@@ -12,5 +12,4 @@ public class Grass extends Tile {
 	public boolean isSolid() {
 		return true;
 	}
-
 }

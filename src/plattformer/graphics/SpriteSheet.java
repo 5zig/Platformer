@@ -11,7 +11,6 @@ public class SpriteSheet {
 	private int[] pixels;
 
 	public static final SpriteSheet TEST = new SpriteSheet("/test.png");
-	
 	public static final SpriteSheet PLAYER = new SpriteSheet("/entities/player.png");
 
 	public SpriteSheet(String path) {

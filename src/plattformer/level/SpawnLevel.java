@@ -1,18 +1,17 @@
 package plattformer.level;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+import plattformer.Game;
 
 import javax.imageio.ImageIO;
-
-import plattformer.Game;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class SpawnLevel extends Level {
 
 	private final String path = "/levels/spawn.png";
 
 	public SpawnLevel(Game game) {
-		super(game);
+		super(game, 16);
 	}
 
 	@Override
