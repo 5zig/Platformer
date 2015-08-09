@@ -17,13 +17,6 @@ public class Player extends Mob {
         hXOffs = 4;
         hYOffs = 7;
 
-        movementSpeed = 0.2;
-        maxMovementSpeed = 4.0;
-        maxFallingSpeed = 6;
-        stopMovementSpeed = 0.3;
-        jumpMomentum = -6;
-        gravity = 0.3;
-
         animation = new Animation();
         animation.setFrames(Assets.PLAYER_IDLE);
         animation.setFPS(-1);
