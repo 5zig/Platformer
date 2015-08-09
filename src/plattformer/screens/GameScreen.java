@@ -11,6 +11,7 @@ public class GameScreen extends Screen {
 	public GameScreen(Game game, Level level) {
 		super(game);
 		this.level = level;
+		yScroll = 120;
 	}
 
 	public void render() {
@@ -21,14 +22,14 @@ public class GameScreen extends Screen {
 		level.tick();
 
 		xScroll = game.getPlayer().getX() - game.getScaledWidth() / 2;
-		yScroll = game.getPlayer().getY() - game.getScaledHeight() / 2;
+		//yScroll = game.getPlayer().getY() - game.getScaledHeight() / 2;
 
 		// allow screen scroll only til max
-		int maxwidth = level.getWidth() * 16;
+		int maxwidth = level.getWidth() * 16 - game.getScaledWidth();
 		if (xScroll > maxwidth) xScroll = maxwidth;
 		if (xScroll < 0) xScroll = 0;
 
-		int maxheight = level.getHeight() * 16;
+		int maxheight = level.getHeight() * 16 - game.getScaledHeight();
 		if (yScroll > maxheight) yScroll = maxheight;
 		if (yScroll < 0) yScroll = 0;
 	}
