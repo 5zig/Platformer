@@ -1,0 +1,17 @@
+===== Kram zum Merken =====
+- Für Entities:
+    - hXOffs x 2 DARF NICHT größer sein als hWidth und
+    - hYOffs x 2 DARF NICHT größer sein als hHeight
+
+- Falls es Entities geben sollte, deren Hitbox höher/breiter als ein Tile ist,
+  müssen noch zusätzliche Tiles auf Kollision überprüft werden. (Kann auch irgendwann mal so hinzugefügt werden :P)
+
+===== TO DO-List =====
+- Animation Modes (z.B. looping, reverse, etc.)
+- 5 Layer Tileset Kram
+- Mehr Tiles
+
+==============================
+Weil ich's immer vergesse:
+Shift Right: >> "dividieren"
+Shift Left:  << "multiplizieren"

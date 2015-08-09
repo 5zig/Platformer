@@ -1,59 +1,70 @@
 package plattformer.graphics;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
 public class Sprite {
 
-	private int[] pixels;
-	private int size;
+    private int[] pixels;
+    private int width, height;
 
-	public static final Sprite GRASS = new Sprite(SpriteSheet.TEST, 0, 0, 16);
-	public static final Sprite TESTSPRITE = new Sprite(SpriteSheet.TEST, 1, 0, 16);
-	public static final Sprite VOID = new Sprite(0x00AEFF, 16);
+    /**
+     * Extract a sprite from the spritesheet with specific coordinates
+     *
+     * @param sheet Spritesheet
+     * @param x     X-Coordinate
+     * @param y     Y-Coordinate
+     * @param size  The Size of the Sprite
+     */
+    public Sprite(SpriteSheet sheet, int x, int y, int size) {
+        pixels = new int[size * size];
+        width = size;
+        height = size;
 
-	// Player
-	public static final Sprite PLAYER_IDLE = new Sprite(SpriteSheet.PLAYER, 0, 0, 16);
-	public static final Sprite PLAYER_WALK_1 = new Sprite(SpriteSheet.PLAYER, 1, 0, 16);
-	public static final Sprite PLAYER_WALK_2 = new Sprite(SpriteSheet.PLAYER, 2, 0, 16);
-	public static final Sprite PLAYER_FALL = new Sprite(SpriteSheet.PLAYER, 3, 0, 16);
+        for (int yy = 0; yy < size; yy++) {
+            int yo = y * size + yy;
+            for (int xx = 0; xx < size; xx++) {
+                int xo = x * size + xx;
+                pixels[xx + yy * size] = sheet.getPixels()[xo + yo * sheet.getWidth()];
+            }
+        }
+    }
 
-	/**
-	 * Extract a sprite from the spritesheet with specific coordinates
-	 * 
-	 * @param sheet
-	 *            Spritesheet
-	 * @param x
-	 *            X-Coordinate
-	 * @param y
-	 *            Y-Coordinate
-	 * @param size
-	 *            The Size of the Sprite
-	 */
-	public Sprite(SpriteSheet sheet, int x, int y, int size) {
-		pixels = new int[size * size];
-		this.size = size;
+    public Sprite(String path) {
+        System.out.print("Trying to load Sprite from " + path + "... ");
+        try {
+            BufferedImage image = ImageIO.read(SpriteSheet.class.getResource(path));
+            width = image.getWidth();
+            height = image.getHeight();
+            pixels = new int[width * height];
+            image.getRGB(0, 0, width, height, pixels, 0, width > height ? width : height);
+            System.out.println("done.");
+        } catch (IOException e) {
+            System.out.println("failed.");
+            e.printStackTrace();
+        }
+    }
 
-		for (int yy = 0; yy < size; yy++) {
-			int yo = y * size + yy;
-			for (int xx = 0; xx < size; xx++) {
-				int xo = x * size + xx;
-				pixels[xx + yy * size] = sheet.getPixels()[xo + yo * sheet.getWidth()];
-			}
-		}
-	}
+    public Sprite(int col, int size) {
+        width = size;
+        height = size;
+        pixels = new int[size * size];
 
-	public Sprite(int col, int size) {
-		this.size = size;
-		pixels = new int[size * size];
+        for (int i = 0; i < pixels.length; i++) {
+            pixels[i] = col;
+        }
+    }
 
-		for (int i = 0; i < pixels.length; i++) {
-			pixels[i] = col;
-		}
-	}
+    public int[] getPixels() {
+        return pixels;
+    }
 
-	public int[] getPixels() {
-		return pixels;
-	}
+    public int getWidth() {
+        return width;
+    }
 
-	public int getSize() {
-		return size;
-	}
+    public int getHeight() {
+        return height;
+    }
 }

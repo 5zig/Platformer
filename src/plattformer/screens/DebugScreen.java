@@ -1,9 +1,9 @@
 package plattformer.screens;
 
-import java.util.Random;
-
 import plattformer.Game;
-import plattformer.graphics.Sprite;
+import plattformer.graphics.Assets;
+
+import java.util.Random;
 
 public class DebugScreen extends Screen {
 
@@ -34,7 +34,7 @@ public class DebugScreen extends Screen {
 			pixels[i] = i + ticks;
 		}
 
-		renderSprite(Sprite.TESTSPRITE, x, y, 0, false);
+		renderSprite(Assets.GRASS, x, y, 0, false);
 	}
 
 	@Override

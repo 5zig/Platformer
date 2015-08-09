@@ -5,8 +5,8 @@ public class Animation {
     private Sprite[] sprites;
     private int currentFrame;
 
-    private long startTime;
-    private int delay;
+    private int timer;
+    private int fps;
 
     public void setFrames(Sprite... sprites) {
         this.sprites = sprites;
@@ -14,18 +14,18 @@ public class Animation {
             currentFrame = 0;
     }
 
-    public void setDelay(int delay) {
-        this.delay = delay;
+    public void setFPS(int fps) {
+        this.fps = fps;
     }
 
     public void tick() {
-        if (delay == -1)
+        if (fps == -1)
             return;
 
-        long elapsed = (System.nanoTime() - startTime) / 1000000;
-        if (elapsed > delay) {
+        timer++;
+        if (timer > 60 / fps) {
             currentFrame++;
-            startTime = System.nanoTime();
+            timer = 0;
         }
 
         if (currentFrame >= sprites.length)

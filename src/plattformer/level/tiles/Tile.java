@@ -1,19 +1,24 @@
 package plattformer.level.tiles;
 
+import plattformer.graphics.Assets;
 import plattformer.graphics.Sprite;
 import plattformer.screens.Screen;
 
-public abstract class Tile {
+public class Tile {
 
-	public static final int COL_GRASS = 0xff00ff00;
-
-	public static final Tile GRASS = new Grass(Sprite.GRASS);
-	public static final Tile VOID = new Void(Sprite.VOID);
+	// Tileset: Overworld Level
+	public static final Tile GRASS = new Tile(Assets.GRASS, true);
+	public static final Tile GRASS_LEFT = new Tile(Assets.GRASS_LEFT, false);
+	public static final Tile GRASS_RIGHT = new Tile(Assets.GRASS_RIGHT, false);
+	public static final Tile DIRT = new Tile(Assets.DIRT, true);
+	public static final Tile VOID = new Tile(Assets.VOID, false);
 
 	private Sprite sprite;
+	private boolean solid;
 
-	public Tile(Sprite sprite) {
+	public Tile(Sprite sprite, boolean solid) {
 		this.sprite = sprite;
+		this.solid = solid;
 	}
 
 	public void render(Screen screen, int xp, int yp) {
@@ -25,7 +30,7 @@ public abstract class Tile {
 	}
 
 	public boolean isSolid() {
-		return false;
+		return solid;
 	}
 
 }

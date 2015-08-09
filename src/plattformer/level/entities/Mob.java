@@ -80,13 +80,13 @@ public abstract class Mob extends Entity {
 
 		// Collision Detection
 
-		int col = level.getColTile(x);
-		int row = level.getRowTile(y);
+		int col = x >> 4;
+		int row = y >> 4;
 
 		double tempX = x;
 		double tempY = y;
 
-		// Foreseeing the future positions! (??_?)
+		// Foreseeing the future positions!
 		double toX = x + dx;
 		double toY = y + dy;
 
@@ -94,7 +94,7 @@ public abstract class Mob extends Entity {
 		if (dy < 0) {
 			if (topLeft || topRight) {
 				dy = 0;
-				tempY = row * 16 + getBounds().getHeight() / 2;
+				tempY = (row << 4) + getBounds().getHeight() / 2;
 			} else {
 				tempY += dy;
 			}
@@ -103,7 +103,7 @@ public abstract class Mob extends Entity {
 			if (bottomLeft || bottomRight) {
 				dy = 0;
 				airborne = false;
-				tempY = (row + 1) * 16 - getBounds().getHeight() / 2;
+				tempY = (row + 1 << 4) - getBounds().getHeight() / 2;
 			} else {
 				tempY += dy;
 			}
@@ -113,7 +113,7 @@ public abstract class Mob extends Entity {
 		if (dx < 0) {
 			if (topLeft || bottomLeft) {
 				dx = 0;
-				tempX = col * 16 + getBounds().getWidth() / 2;
+				tempX = (col << 4) + getBounds().getWidth() / 2;
 			} else {
 				tempX += dx;
 			}
@@ -121,7 +121,7 @@ public abstract class Mob extends Entity {
 		if (dx > 0) {
 			if (topRight || bottomRight) {
 				dx = 0;
-				tempX = (col + 1) * 16 - getBounds().getWidth() / 2;
+				tempX = (col + 1 << 4) - getBounds().getWidth() / 2;
 			} else {
 				tempX += dx;
 			}
@@ -139,10 +139,11 @@ public abstract class Mob extends Entity {
 	}
 
 	private void checkCollision(double x, double y) {
-		int leftTile = level.getColTile((int) (x - getBounds().getWidth() / 2));
-		int rightTile = level.getColTile((int) (x + getBounds().getWidth() / 2) - 1);
-		int topTile = level.getRowTile((int) (y - getBounds().getHeight() / 2));
-		int bottomTile = level.getRowTile((int) (y + getBounds().getHeight() / 2) - 1);
+		int leftTile = (int) getBounds(x, y).getMinX() >> 4;
+		int rightTile = (int) (getBounds(x, y).getMaxX() - 1) >> 4;
+		int topTile = (int) getBounds(x, y).getMinY() >> 4;
+		int bottomTile = (int) (getBounds(x, y).getMaxY() - 1) >> 4;
+
 		topLeft = level.getTile(leftTile, topTile).isSolid();
 		topRight = level.getTile(rightTile, topTile).isSolid();
 		bottomLeft = level.getTile(leftTile, bottomTile).isSolid();

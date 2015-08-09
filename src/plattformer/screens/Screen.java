@@ -37,19 +37,18 @@ public abstract class Screen {
 			yp -= yOffset;
 		}
 		
-		for (int y = 0; y < sprite.getSize(); y++) {
+		for (int y = 0; y < sprite.getHeight(); y++) {
 			int ya = y + yp;
 			int ys = y;
-			if (flip == 2 || flip == 3) ys = (sprite.getSize() - 1) - y;
-			for (int x = 0; x < sprite.getSize(); x++) {
+			if (flip == 2 || flip == 3) ys = (sprite.getHeight() - 1) - y;
+			for (int x = 0; x < sprite.getWidth(); x++) {
 				int xa = x + xp;
 				int xs = x;
-				if (flip == 1 || flip == 3) xs = (sprite.getSize() - 1) - x;
-				if (xa < -sprite.getSize() || xa >= game.getScaledWidth() || ya < 0 || ya >= game.getScaledHeight()) break;
+				if (flip == 1 || flip == 3) xs = (sprite.getWidth() - 1) - x;
+				if (xa < -sprite.getWidth() || xa >= game.getScaledWidth() || ya < 0 || ya >= game.getScaledHeight()) break;
 				if (xa < 0) continue;
-				int col = sprite.getPixels()[xs + ys * sprite.getSize()];
-				if (col == 0xffff00ff) continue;
-				pixels[xa + ya * game.getScaledWidth()] = col;
+				int col = sprite.getPixels()[xs + ys * sprite.getWidth()];
+				if (col < 0) pixels[xa + ya * game.getScaledWidth()] = col;
 			}
 		}
 	}
