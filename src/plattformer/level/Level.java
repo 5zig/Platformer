@@ -42,6 +42,7 @@ public class Level {
                     tiles[x + y * width] = Integer.parseInt(rowValues[x]);
                 }
             }
+            System.out.println("done.");
         } catch (IOException e) {
             System.out.println("failed.");
             e.printStackTrace();
